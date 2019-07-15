@@ -3,6 +3,8 @@ import Overbar from  './Overbar.jsx'
 import ScoreOverview from './ScoreOverview.jsx'
 import ReviewList from './ReviewList.jsx'
 import Searchbar from './Searchbar.jsx'
+import styles from '../styles/appStyle.css'
+import StarDisplay from './starDisplay.jsx'
 
 
 class App extends React.Component {
@@ -41,10 +43,12 @@ class App extends React.Component {
   }
   render() {
     if ((this.state.searchMode === true) && (this.state.data === 'No reviews match your search!') ) {
-      return (<div>
-        <div>
-          <Overbar reviewCount={this.props.data.length - 1} reviewScore={this.props.data[0].review_score} />
-          <Searchbar onKeystroke={this.handleSearchKeystroke}/>
+      return (<div className={styles.primary}>
+        <div className={styles.flexRow}>
+        <h1>{this.props.data.length - 1} Reviews</h1>
+        <StarDisplay starCount={this.props.data[0].review_score}/>
+        <Searchbar className={styles.backRow} onKeystroke={this.handleSearchKeystroke}/>
+
         </div>
 
         <div>
@@ -56,9 +60,10 @@ class App extends React.Component {
     }
      else if (this.state.searchMode === true) {
        console.log(this.state.data)
-        return (<div>
-          <div>
-            <Overbar reviewCount={this.props.data.length - 1} reviewScore={this.props.data[0].review_score} />
+        return (<div className={styles.primary}>
+          <div className={styles.flexRow} >
+          <h1>{this.props.data.length - 1} Reviews</h1>
+            <StarDisplay starCount={this.props.data[0].review_score}/>
             <Searchbar onKeystroke={this.handleSearchKeystroke}/>
           </div>
 
@@ -72,9 +77,11 @@ class App extends React.Component {
       }
       else {
         return (
-        <div>
-          <div>
-            <Overbar reviewCount={this.props.data.length - 1} reviewScore={this.props.data[0].review_score} />
+        <div className={styles.primary} >
+          <div className={styles.flexRow}>
+            <h1>{this.props.data.length - 1} Reviews
+            </h1>
+            <StarDisplay starCount={this.props.data[0].review_score}/>
             <Searchbar onKeystroke={this.handleSearchKeystroke}/>
           </div>
 
@@ -91,3 +98,23 @@ class App extends React.Component {
   }
 };
 export default App;
+
+
+
+
+// import StarDisplay from  './starDisplay.jsx'
+// import React from 'react';
+// import Searchbar from './Searchbar.jsx'
+// import styles from '../styles/overbarStyle.css'
+// function Overbar (props) {
+//   return (<div className={styles.overbar}>
+//     <span>
+
+//     <strong>{props.reviewCount} Reviews</strong>
+//     </span>
+//     <span>
+//     <StarDisplay starCount={props.reviewScore}/>
+//     </span>
+//   </div>
+//   )
+// }

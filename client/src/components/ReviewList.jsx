@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Review from './Review.jsx'
+import styles from '../styles/reviewListStyle.css'
 
 class ReviewList extends React.Component {
   constructor (props) {
@@ -11,21 +13,39 @@ class ReviewList extends React.Component {
     this.finalPageNumber = this.finalPageNumber.bind(this);
   }
 
+
   incrementPageNumber(mult = 1) {
       this.setState((state) => {
         return {reviewPageNumber: state.reviewPageNumber + (mult * 7)}
-      });
+      }
+      , () => {window.scrollTo({
+        top: 100,
+        left: 100,
+        behavior: 'smooth'
+      });}
+      );
   }
 
 
   decrementPageNumber(mult = 1) {
-    this.setState((state) => {
+    this.setState(
+      (state) => {
       return {reviewPageNumber: state.reviewPageNumber - (mult * 7)}
-    });
+      }, () => {window.scrollTo({
+        top: 100,
+        left: 100,
+        behavior: 'smooth'
+      });}
+    );
   }
 
   resetPageNumber () {
-    this.setState({reviewPageNumber:1})
+    this.setState(
+      {reviewPageNumber:1}, () => {window.scrollTo({
+        top: 100,
+        left: 100,
+        behavior: 'smooth'
+      });})
   }
 
   finalPageNumber () {
@@ -38,6 +58,7 @@ class ReviewList extends React.Component {
   render() {
     let output =[]
     let counter = 0
+
     let page = (this.state.reviewPageNumber -1) / 7
     let last = Math.ceil((this.props.data.length -1)/7)
     for (let i = this.state.reviewPageNumber; i < this.state.reviewPageNumber + 7; i++) {
@@ -49,17 +70,17 @@ class ReviewList extends React.Component {
         <div>
           {output}
 
-          <button>  {page+1}  </button>
+          <a className={styles.centerbutton}>  {page+1}  </a>
 
-          <button onClick={() => {this.incrementPageNumber()}}>{page+2}</button>
+          <a className={styles.navbutton} onClick={() => {this.incrementPageNumber(1);}}>{page+2}</a>
 
-          <button onClick={() => {this.incrementPageNumber(2)}}>{page+3}</button>
+          <a className={styles.navbutton} onClick={() => {this.incrementPageNumber(2);}}>{page+3}</a>
 
-          <span> ... </span>
+          <span className={styles.navbuffer}>...</span>
 
-          <button onClick={this.finalPageNumber}>{last}</button>
+          <a className={styles.navbutton} onClick={() => {this.finalPageNumber();}}>{last}</a>
 
-          <button onClick={() =>{this.incrementPageNumber()}}>{'>>>>'}</button>
+          <a className={styles.sidewaysbutton} onClick={() =>{this.incrementPageNumber(1);}}>{'>'}</a>
 
         </div>
         )
@@ -69,19 +90,19 @@ class ReviewList extends React.Component {
         <div>
         {output}
 
-        <button onClick={() => {this.decrementPageNumber()}}>{'<<<<'}</button>
+        <a className={styles.sidewaysbutton} onClick={() => {this.decrementPageNumber()}}>{'<'}</a>
 
-        <button onClick={() => {this.decrementPageNumber()}}>{page}</button>
+        <a className={styles.navbutton} onClick={() => {this.decrementPageNumber()}}>{page}</a>
 
-        <button>  {page+1}  </button>
+        <a className={styles.centerbutton}>  {page+1}  </a>
 
-        <button onClick={() => {this.incrementPageNumber()}}>{page+2}</button>
+        <a className={styles.navbutton} onClick={() => {this.incrementPageNumber()}}>{page+2}</a>
 
-        <span> ... </span>
+        <span className={styles.navbuffer}>...</span>
 
-        <button onClick={this.finalPageNumber}>{last}</button>
+        <a className={styles.navbutton} onClick={this.finalPageNumber}>{last}</a>
 
-        <button onClick={() =>{this.incrementPageNumber()}}>{'>>>>'}</button>
+        <a className={styles.sidewaysbutton} onClick={() =>{this.incrementPageNumber()}}>{'>'}</a>
 
       </div>
       )
@@ -91,21 +112,21 @@ class ReviewList extends React.Component {
         <div>
         {output}
 
-        <button onClick={() => {this.decrementPageNumber()}}>{'<<<<'}</button>
+        <a className={styles.sidewaysbutton} onClick={() => {this.decrementPageNumber()}}>{'<'}</a>
 
-        <button onClick={() => {this.decrementPageNumber(2)}}>{page-1}</button>
+        <a className={styles.navbutton} onClick={() => {this.decrementPageNumber(2)}}>{page-1}</a>
 
-        <button onClick={() => {this.decrementPageNumber()}}>{page}</button>
+        <a className={styles.navbutton} onClick={() => {this.decrementPageNumber()}}>{page}</a>
 
-        <button>  {page+1}  </button>
+        <a className={styles.centerbutton}>  {page+1}  </a>
 
-        <button onClick={() => {this.incrementPageNumber()}}>{page+2}</button>
+        <a className={styles.navbutton} onClick={() => {this.incrementPageNumber()}}>{page+2}</a>
 
-        <span> ... </span>
+        <span className={styles.navbuffer}>...</span>
 
-        <button onClick={this.finalPageNumber}>{last}</button>
+        <a className={styles.navbutton} onClick={this.finalPageNumber}>{last}</a>
 
-        <button onClick={() =>{this.incrementPageNumber()}}>{'>>>>'}</button>
+        <a className={styles.sidewaysbutton} onClick={() =>{this.incrementPageNumber()}}>{'>'}</a>
 
       </div>
       )
@@ -115,23 +136,23 @@ class ReviewList extends React.Component {
         <div>
         {output}
 
-        <button onClick={() => {this.decrementPageNumber()}}>{'<<<<'}</button>
+        <a className={styles.sidewaysbutton} onClick={() => {this.decrementPageNumber()}}>{'<'}</a>
 
-        <button onClick={() => {this.decrementPageNumber(3)}}>{page-2}</button>
+        <a className={styles.navbutton} onClick={() => {this.decrementPageNumber(3)}}>{page-2}</a>
 
-        <button onClick={() => {this.decrementPageNumber(2)}}>{page-1}</button>
+        <a className={styles.navbutton} onClick={() => {this.decrementPageNumber(2)}}>{page-1}</a>
 
-        <button onClick={() => {this.decrementPageNumber()}}>{page}</button>
+        <a className={styles.navbutton} onClick={() => {this.decrementPageNumber()}}>{page}</a>
 
-        <button>  {page+1}  </button>
+        <a className={styles.centerbutton}>  {page+1}  </a>
 
-        <button onClick={() => {this.incrementPageNumber()}}>{page+2}</button>
+        <a className={styles.navbutton} onClick={() => {this.incrementPageNumber()}}>{page+2}</a>
 
-        <span> ... </span>
+        <span className={styles.navbuffer}>...</span>
 
-        <button onClick={this.finalPageNumber}>{last}</button>
+        <a className={styles.navbutton} onClick={this.finalPageNumber}>{last}</a>
 
-        <button onClick={() =>{this.incrementPageNumber()}}>{'>>>>'}</button>
+        <a className={styles.sidewaysbutton} onClick={() =>{this.incrementPageNumber()}}>{'>'}</a>
 
       </div>
       )
@@ -141,17 +162,17 @@ class ReviewList extends React.Component {
         <div>
           {output}
 
-          <button onClick={() => {this.decrementPageNumber()}}>{'<<<<'}</button>
+          <a className={styles.sidewaysbutton} onClick={() => {this.decrementPageNumber()}}>{'<'}</a>
 
-          <button onClick={this.resetPageNumber}>1</button>
+          <a className={styles.navbutton} onClick={this.resetPageNumber}>1</a>
 
-          <span> ... </span>
+          <span className={styles.navbuffer}>...</span>
 
-          <button onClick={() => {this.decrementPageNumber(2)}}>{page-1}</button>
+          <a className={styles.navbutton} onClick={() => {this.decrementPageNumber(2)}}>{page-1}</a>
 
-          <button onClick={() => {this.decrementPageNumber()}}>{page}</button>
+          <a className={styles.navbutton} onClick={() => {this.decrementPageNumber()}}>{page}</a>
 
-          <button>  {page+1}  </button>
+          <a className={styles.centerbutton}>  {page+1}  </a>
 
         </div>
         )
@@ -161,19 +182,19 @@ class ReviewList extends React.Component {
         <div>
           {output}
 
-          <button onClick={() => {this.decrementPageNumber()}}>{'<<<<'}</button>
+          <a className={styles.sidewaysbutton} onClick={() => {this.decrementPageNumber()}}>{'<'}</a>
 
-          <button onClick={this.resetPageNumber}>1</button>
+          <a className={styles.navbutton} onClick={this.resetPageNumber}>1</a>
 
-          <span> ... </span>
+          <span className={styles.navbuffer}>...</span>
 
-          <button onClick={() => {this.decrementPageNumber()}}>{page}</button>
+          <a className={styles.navbutton} onClick={() => {this.decrementPageNumber()}}>{page}</a>
 
-          <button>  {page+1}  </button>
+          <a className={styles.centerbutton}>  {page+1}  </a>
 
-          <button onClick={() => {this.incrementPageNumber()}}>{page+2}</button>
+          <a className={styles.navbutton} onClick={() => {this.incrementPageNumber()}}>{page+2}</a>
 
-          <button onClick={() =>{this.incrementPageNumber()}}>{'>>>>'}</button>
+          <a className={styles.sidewaysbutton} onClick={() =>{this.incrementPageNumber()}}>{'>'}</a>
 
         </div>
         )
@@ -183,21 +204,21 @@ class ReviewList extends React.Component {
         <div>
           {output}
 
-          <button onClick={() => {this.decrementPageNumber()}}>{'<<<<'}</button>
+          <a className={styles.sidewaysbutton} onClick={() => {this.decrementPageNumber()}}>{'<'}</a>
 
-          <button onClick={this.resetPageNumber}>1</button>
+          <a className={styles.navbutton} onClick={this.resetPageNumber}>1</a>
 
-          <span> ... </span>
+          <span className={styles.navbuffer}>...</span>
 
-          <button onClick={() => {this.decrementPageNumber()}}>{page}</button>
+          <a className={styles.navbutton} onClick={() => {this.decrementPageNumber()}}>{page}</a>
 
-          <button>  {page+1}  </button>
+          <a className={styles.centerbutton}>  {page+1}  </a>
 
-          <button onClick={() => {this.incrementPageNumber()}}>{page+2}</button>
+          <a className={styles.navbutton} onClick={() => {this.incrementPageNumber()}}>{page+2}</a>
 
-          <button onClick={() => {this.incrementPageNumber(2)}}>{page+3}</button>
+          <a className={styles.navbutton} onClick={() => {this.incrementPageNumber(2)}}>{page+3}</a>
 
-          <button onClick={() =>{this.incrementPageNumber()}}>{'>>>>'}</button>
+          <a className={styles.sidewaysbutton} onClick={() =>{this.incrementPageNumber()}}>{'>'}</a>
 
         </div>
         )
@@ -207,23 +228,23 @@ class ReviewList extends React.Component {
         <div>
           {output}
 
-          <button onClick={() => {this.decrementPageNumber()}}>{'<<<<'}</button>
+          <a className={styles.sidewaysbutton} onClick={() => {this.decrementPageNumber()}}>{'<'}</a>
 
-          <button onClick={this.resetPageNumber}>1</button>
+          <a className={styles.navbutton} onClick={this.resetPageNumber}>1</a>
 
-          <span> ... </span>
+          <span className={styles.navbuffer}>...</span>
 
-          <button onClick={() => {this.decrementPageNumber()}}>{page}</button>
+          <a className={styles.navbutton} onClick={() => {this.decrementPageNumber()}}>{page}</a>
 
-          <button>  {page+1}  </button>
+          <a className={styles.centerbutton}>  {page+1}  </a>
 
-          <button onClick={() => {this.incrementPageNumber()}}>{page+2}</button>
+          <a className={styles.navbutton} onClick={() => {this.incrementPageNumber()}}>{page+2}</a>
 
-          <button onClick={() => {this.incrementPageNumber(2)}}>{page+3}</button>
+          <a className={styles.navbutton} onClick={() => {this.incrementPageNumber(2)}}>{page+3}</a>
 
-          <button onClick={() => {this.incrementPageNumber(3)}}>{page+4}</button>
+          <a className={styles.navbutton} onClick={() => {this.incrementPageNumber(3)}}>{page+4}</a>
 
-          <button onClick={() =>{this.incrementPageNumber()}}>{'>>>>'}</button>
+          <a className={styles.sidewaysbutton} onClick={() =>{this.incrementPageNumber()}}>{'>'}</a>
 
         </div>
         )
@@ -234,23 +255,23 @@ class ReviewList extends React.Component {
         <div>
         {output}
 
-        <button onClick={() => {this.decrementPageNumber()}}>{'<<<<'}</button>
+        <a className={styles.sidewaysbutton} onClick={() => {this.decrementPageNumber()}}>{'<'}</a>
 
-        <button onClick={this.resetPageNumber}>1</button>
+        <a className={styles.navbutton} onClick={this.resetPageNumber}>1</a>
 
-        <span> ... </span>
+        <span className={styles.navbuffer}>...</span>
 
-        <button onClick={() => {this.decrementPageNumber()}}>{page}</button>
+        <a className={styles.navbutton} onClick={() => {this.decrementPageNumber()}}>{page}</a>
 
-        <button>  {page+1}  </button>
+        <a className={styles.centerbutton}>  {page+1}  </a>
 
-        <button onClick={() => {this.incrementPageNumber()}}>{page+2}</button>
+        <a className={styles.navbutton} onClick={() => {this.incrementPageNumber()}}>{page+2}</a>
 
-        <span> ... </span>
+        <span className={styles.navbuffer}>...</span>
 
-        <button onClick={this.finalPageNumber}>{last}</button>
+        <a className={styles.navbutton} onClick={this.finalPageNumber}>{last}</a>
 
-        <button onClick={() => {this.incrementPageNumber()}}>{'>>>>'}</button>
+        <a className={styles.sidewaysbutton} onClick={() => {this.incrementPageNumber()}}>{'>'}</a>
 
       </div>
       )
